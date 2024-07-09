@@ -29,7 +29,7 @@ try:
             # Print the number of targets and their distances
             print(f"Number of targets: {number_objects}")
             for i, d in enumerate(y):
-                print(f"Distance to Target {i + 1}: {d:.2f}")
+                print(f"Distance to Target {i + 1}: {d:.2f} m")
 
             plt.clf()
 
