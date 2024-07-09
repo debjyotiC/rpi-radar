@@ -22,9 +22,14 @@ try:
         radar_data, frameOk = radar_data_reader.read_radar_data(data_port, cf)
 
         if frameOk:
-            print(radar_data)
+            number_objects = radar_data["numObj"]
             x = radar_data["x"]
             y = radar_data["y"]
+
+            # Print the number of targets and their distances
+            print(f"Number of targets: {number_objects}")
+            for i, d in enumerate(y):
+                print(f"Distance to Target {i + 1}: {d:.2f}")
 
             plt.clf()
 
@@ -36,6 +41,12 @@ try:
 
             # Plotting the data
             ax.scatter(theta, r, color='green', s=20)
+
+            for i in range(number_objects):
+                ax.annotate(f'Target: {i + 1}\nd={y[i]:.2f}m', (theta[i], r[i]),
+                            textcoords="offset points", xytext=(5, -20), ha='center', color='black',
+                            bbox=dict(boxstyle="round,pad=0.3", edgecolor='red', facecolor='yellow', alpha=0.6),
+                            fontsize=7, fontstyle='italic', fontweight='bold')
 
             ax.set_thetamin(0)
             ax.set_thetamax(180)
